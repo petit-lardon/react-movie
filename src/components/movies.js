@@ -15,9 +15,8 @@ class Movies extends Component {
     };
 
     componentDidMount() {
-        const genres = [{name: 'Tous'}, ...getGenres()];
+        const genres = [{_id: '', name: 'Tous'}, ...getGenres()];
         this.setState({movies: getMovies(), genres});
-        console.log('state', this.state);
     }
 
     handleDelete = (movie) => {
@@ -38,25 +37,22 @@ class Movies extends Component {
     }
 
     handlePageChange = (page) => {
-        console.log(page);
         this.setState({currentPage: page});
     }
 
     handleGenreSelect = (genre) => {
-        console.log('genre', genre);
         this.setState({selectedGenre: genre, currentPage: 1});
     }
 
+    handleSort = (path) => {
+        console.log('path', path);
+    }
+
     render() {
-        //const movies = this.state.movies.splice(0, this.state.pageSize);
-        //console.log('movies', movies);
         const { pageSize, currentPage, selectedGenre, movies: allMovies } = this.state;
-        console.log('selectedGenre',selectedGenre);
-        console.log('allMovies',allMovies);
         const filtered = selectedGenre && selectedGenre._id
             ? allMovies.filter(m => m.genre._id === selectedGenre._id)
             : allMovies;
-        console.log('filtered',filtered);
         const movies = paginate(filtered, currentPage, pageSize);
 
         if (this.state.movies.length === 0) return <p>Pas de film dans la base de données</p>;
@@ -77,6 +73,7 @@ class Movies extends Component {
                         movies={movies}
                         onLike={this.handleLike}
                         onDelete={this.handleDelete}
+                        onSort={this.handleSort}
                     />
                     <Pagination
                         itemsCount={filtered.length}

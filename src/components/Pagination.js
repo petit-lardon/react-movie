@@ -8,9 +8,6 @@ const Pagination = (props) => {
     if (pagesCount === 1) return null;
 
     const pages = _.range(1, pagesCount + 1);
-    console.log('currentPage', currentPage);
-    console.log('pagesCount', pagesCount);
-    console.log('pages', pages);
 
     return (
         <nav>
