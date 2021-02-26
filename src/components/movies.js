@@ -3,8 +3,8 @@ import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 import { paginate } from "../utils/paginate";
 import MoviesTable from './MoviesTable';
-import Pagination from "./Pagination";
-import ListGroup from "./ListGroup";
+import Pagination from "./common/Pagination";
+import ListGroup from "./common/ListGroup";
 import _ from 'lodash';
 
 class Movies extends Component {
@@ -47,7 +47,6 @@ class Movies extends Component {
     }
 
     handleSort = (sortColumn) => {
-        console.log('handleSort', sortColumn);
         this.setState({sortColumn});
     }
 
