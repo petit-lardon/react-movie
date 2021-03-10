@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Input from '../common/Input';
 
 
 class LoginForm extends Component {
@@ -26,35 +27,25 @@ class LoginForm extends Component {
 
     render() {
         const {username, password} = this.state.account;
+
         return (
             <div>
                 <h1>Login</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="username">Username</label>
-                        <input
-                            value={username}
-                            onChange={this.handleChange}
-                            autoFocus
-                            ref={this.username}
-                            type="email"
-                            name="username"
-                            className="form-control"
-                            id="username"
-                            aria-describedby="usernameHelp"
-                            placeholder="Enter username"/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            value={password}
-                            name="password"
-                            onChange={this.handleChange}
-                            placeholder="Password"/>
-                    </div>
+                    <Input name="username"
+                           label="Username"
+                           value={username}
+                           type="email"
+                           onChange={this.handleChange}
+                           placeholder="Enter username"
+                           desc="usernameHelp"
+                    />
+                    <Input name="password"
+                           label="Password"
+                           value={password}
+                           type="password"
+                           onChange={this.handleChange}
+                    />
                     <button type="submit" className="btn btn-primary">Login</button>
                 </form>
             </div>
