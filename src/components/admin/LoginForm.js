@@ -1,84 +1,29 @@
-import React, {Component} from 'react';
-import Input from '../common/Input';
+import React from 'react';
+import Input from '../form/Input';
+import Form from '../form/Form';
 import Joi from 'joi-browser';
 
 
-class LoginForm extends Component {
+class LoginForm extends Form {
     state = {
-        account: {
+        data: {
             username: '',
             password: ''
         },
         errors: {}
     }
-    username = React.createRef();
 
     schemas = {
         username: Joi.string().required().label('Username'),
         password: Joi.string().required().label('Password')
     }
 
-    /*componentDidMount() {
-        this.username.current.focus();
-    }*/
-
-    validate = () => {
-        const opt = {abortEarly: false};
-        const result = Joi.validate(this.state.account, this.schemas, opt);
-        console.log('result', result);
-
-        if(!result.error) return null;
-
-        const errors = {};
-        result.error.details.map((i) => errors[i.path[0]] = i.message);
-        return errors;
-
-        /*const errors = {};
-        const {username, password} = this.state.account;
-
-        if(username.trim() === '') errors.username = "Username required";
-        if(password.trim() === '') errors.password = "Password required";
-        return Object.keys(errors).length === 0 ? null : errors;*/
-    }
-
-    validateProperty = ({name, value}) => {
-        const obj = {[name]: value};
-        const schema = {[name]: this.schemas[name]}
-        const {error} = Joi.validate(obj, schema);
-        return error ? error.details[0].message : null;
-
-
-        /*if (name ==='username') {
-            if(value.trim() === '') return 'Username required';
-        }
-        if (name ==='password') {
-            if(value.trim() === '') return 'Password required';
-        }*/
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-
-        const errors = this.validate();
-        console.log(errors);
-        this.setState({errors: errors || {}});
-        if(errors) return;
-    }
-
-    handleChange = (e) => {
-        const errors = {...this.state.errors}
-        const error = this.validateProperty(e.currentTarget);
-        if(error) errors[e.currentTarget.name] = error;
-        else delete errors[e.currentTarget.name];
-
-        const account = {...this.state.account};
-        account[e.currentTarget.name] = e.currentTarget.value;
-        this.setState({account, errors});
+    doSubmit = () => {
+        //call server
     }
 
     render() {
-        const {username, password} = this.state.account;
-        const {errors} = this.state;
+        const {data, errors} = this.state;
 
         return (
             <div>
@@ -86,7 +31,7 @@ class LoginForm extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <Input name="username"
                            label="Username"
-                           value={username}
+                           value={data.username}
                            type="email"
                            error={errors.username}
                            onChange={this.handleChange}
@@ -95,7 +40,7 @@ class LoginForm extends Component {
                     />
                     <Input name="password"
                            label="Password"
-                           value={password}
+                           value={data.password}
                            type="password"
                            error={errors.password}
                            onChange={this.handleChange}
