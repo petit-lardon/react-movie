@@ -8,6 +8,7 @@ import Rentals from "./components/Rentals";
 import NotFound from "./components/NotFound";
 import MovieForm from "./components/MovieForm";
 import LoginForm from "./components/admin/LoginForm";
+import RegisterForm from "./components/admin/RegisterForm";
 import {Switch, Route, Redirect} from "react-router-dom";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <main role="main" className="container">
                 <Switch>
                     <Route path="/login" component={LoginForm} />
+                    <Route path="/register" component={RegisterForm} />
                     <Route path="/movies/:id" component={MovieForm} />
                     <Route path="/movies" component={Movies} />
                     <Route path="/customers" component={Customers} />
